@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>INFLOW LOGGER</title>
+  </head>
+  <body>
+    <!--NAVBAR START-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">
+        <img src="https://cdn.svgporn.com/logos/progress.svg" width="30" height="30" class="d-inline-block align-top" alt="Nautic">
+        Nautic
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <!-- Navbar content below-->
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard.html">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link disabled" href="outflow.html">Outflow </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="inflow.html">Inflow </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="tracker.html">Track Smartbins </a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" method="GET" action='signout'>
+          <button class="btn btn-light my-2 my-sm-0" type="submit">Sign Out</button>
+        </form>
+      </div>
+    </nav>
+    <!--NAVBAR END-->
+    <div>
+      <div class="row">
+        <!--SECTION 1-->
+        <div class="col-md-8" >
+            <form id="unit-summary" class="mt-4 mb-4 mx-3">
+              <div class="form-group row">
+                <!--#TODO : Change to select input type-->
+                <label for="inputTypeOfUnit" class="col-sm col-form-label">Type of Object</label>
+                <div class="col-sm">
+                  <input name="object_type" class="form-control" id="inputTypeOfUnit" placeholder="Type of Object">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputNoOfUnit" class="col-sm col-form-label">No. of Objects</label>
+                <div class="col-sm">
+                  <input name="object_amount" class="form-control" id="inputNoOfUnit" placeholder="Amount of Object">
+                </div>
+              </div>
+              <hr>
+              <div class="form-group">
+                <button type="submit" class="btn btn-secondary btn-block"> ADD </button>
+              </div>
+            </form>
+        </div>
+        <!--SECTION 2-->
+        <div class="d-inline-flex col-md-4 flex-column">
+          <div class="mt-4 mb-4 mx-3">
+            <a class="btn btn-block btn-success">SUBMIT</a>
+          </div>
+          <ul id="block-summary" class="d-flex list-group flex-fill mt-4 mb-4 mx-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center active">
+                Batch Summary
+              </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Syringes
+              <span class="badge badge-primary badge-pill">10</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Bandages
+              <span class="badge badge-primary badge-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Statures
+              <span class="badge badge-primary badge-pill">1</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+      var unit = document.getElementById("unit-summary");
+      var block = document.getElementById("block-summary")
+      unit.onsubmit = appendObject;
+      function appendObject(event) {
+        var form = document.getElementById("unit-summary");
+        var object_type = form.getElementsByTagName("object_type");
+        object_type = object_type.value;
+        console.log(object_type);
+        var object_amount = form.getElementsByTagName("object_amount");
+        object_amount = object_amount.value;
+        console.log(object_amount);
+        var list = document.getElementById("block-summary");  // Create with DOM
+
+        var element = document.createElement("li");
+        element.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
+        element.append(document.createTextNode(object_type));
+
+        var item = document.createTextNode('<li class="list-group-item d-flex justify-content-between align-items-center">'+ object_type +'<span class="badge badge-primary badge-pill">'+ object_amount +'</span></li>');
+        list.append(item);      // Append the new elements
+        event.preventDefault();
+      }
+    </script>
+  </body>
+</html>
