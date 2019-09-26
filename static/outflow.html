@@ -52,13 +52,13 @@
                 <!--#TODO : Change to select input type-->
                 <label for="inputTypeOfUnit" class="col-sm col-form-label">Type of Object</label>
                 <div class="col-sm">
-                  <input name="object_type" class="form-control" id="inputTypeOfUnit" placeholder="Type of Object">
+                  <input name="object_type" id="object_type" class="form-control" id="inputTypeOfUnit" placeholder="Type of Object">
                 </div>
               </div>
               <div class="form-group row">
                 <label for="inputNoOfUnit" class="col-sm col-form-label">No. of Objects</label>
                 <div class="col-sm">
-                  <input name="object_amount" class="form-control" id="inputNoOfUnit" placeholder="Amount of Object">
+                  <input name="object_amount" id="object_amount" class="form-control" id="inputNoOfUnit" placeholder="Amount of Object">
                 </div>
               </div>
               <hr>
@@ -100,24 +100,22 @@
 
     <script>
       var unit = document.getElementById("unit-summary");
-      var block = document.getElementById("block-summary")
       unit.onsubmit = appendObject;
       function appendObject(event) {
-        var form = document.getElementById("unit-summary");
-        var object_type = form.getElementsByTagName("object_type");
-        object_type = object_type.value;
+        var object_type = document.getElementById("object_type").value;
+        var object_amount = document.getElementsById("object_amount").value;
         console.log(object_type);
-        var object_amount = form.getElementsByTagName("object_amount");
-        object_amount = object_amount.value;
         console.log(object_amount);
+        
         var list = document.getElementById("block-summary");  // Create with DOM
-
         var element = document.createElement("li");
         element.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
         element.append(document.createTextNode(object_type));
-
-        var item = document.createTextNode('<li class="list-group-item d-flex justify-content-between align-items-center">'+ object_type +'<span class="badge badge-primary badge-pill">'+ object_amount +'</span></li>');
-        list.append(item);      // Append the new elements
+        var span = document.createElement("span");
+        span.setAttribute("class", "badge badge-primary badge-pill");
+        span.append(document.createTextNode(object_amount));
+        element.append(span);
+        list.append(element);     // Append the new elements
         event.preventDefault();
       }
     </script>
